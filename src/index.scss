@@ -5,6 +5,19 @@ body {
   font-family: $font-family-main;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  h1 {
+    color: $titleGrey;
+    font-family: $font-family-main;
+    font-size: $font-size-large;
+    letter-spacing: $title-letter-spacing;
+  }
+
+  input {
+      border-radius: $standard-radius;
+      border-color: $mainPink;
+      background-color: transparent;
+  }
 }
 
 code {

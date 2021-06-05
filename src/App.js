@@ -5,7 +5,7 @@ import "./App.scss";
 function App() {
   const interest = 3.5;
   return (
-    <div>
+    <div className="App">
       <Calculator interest={interest} />
     </div>
   );
