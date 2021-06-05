@@ -1,33 +1,39 @@
 import React from "react";
 
-const LoanForm = (userValues) => {
+const LoanForm = ({
+  userValues,
+  handleSubmitValues,
+  handleAmountInputChange,
+  handleYearsInputChange,
+}) => {
   return (
     <div className="form">
-      <div className="form-items">
-        <div>
-          <label id="label">Amount:</label>
-          <input
-            type="text"
-            name="amount"
-            placeholder="Loan amount"
-            value={userValues.amount}
-            // onChange method sets the values given by the user as input to the userValues state
-            // onChange={handleInputChange}
-          />
-        </div>
+      <form onSubmit={handleSubmitValues}>
+        <div className="form-items">
+          <div>
+            <label id="label">Amount:</label>
+            <input
+              type="text"
+              name="amount"
+              placeholder={userValues.amount}
+              value={userValues.amount}
+              onChange={handleAmountInputChange}
+            />
+          </div>
 
-        <div>
-          <label id="label">Years:</label>
-          <input
-            type="text"
-            name="years"
-            placeholder="Years to repay"
-            value={userValues.years}
-            // onChange={handleInputChange}
-          />
+          <div>
+            <label id="label">Years:</label>
+            <input
+              type="text"
+              name="years"
+              placeholder="Years to repay"
+              value={userValues.years}
+              onChange={handleYearsInputChange}
+            />
+          </div>
+          <input type="submit" className="button" />
         </div>
-        <input type="submit" className="button" />
-      </div>
+      </form>
     </div>
   );
 };
