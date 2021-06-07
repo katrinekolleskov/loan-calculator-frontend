@@ -1,6 +1,6 @@
 # Loan calculator generator
 
-I decided to make a web-portal with rather simple UI. I used create react app,
+I decided to make a web-portal with rather simple interface. I used create react app,
 since this is a single-page app.
 I have included more detailed commentary in the code.
 
@@ -15,6 +15,9 @@ a screaming baby.
 I wanted a more diverse colour-profile than just two colours. I focused on simple interactions and
 few elements. One thing I would have liked to change is to make the icons svg so I could easily
 change the colour (grey for inactive, for example). I made them into png because it's very fast (for me).
+
+I also did not make it responsive, but I would do this by using media query and defining break points (see sized.scss). I could have used bootstrap or similar libraries, but I prefer to do it myself. I find that I learn
+it better that way and have more control.
 
 ## Some code changes
 
