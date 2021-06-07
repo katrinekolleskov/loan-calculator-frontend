@@ -39,39 +39,51 @@ const Results = ({ userValues, interest }) => {
 
   return (
     <>
-      <h2>Type of loan: </h2>
-      <h3>{userValues.type}</h3>
+      <header className="results-header">
+        <h1>Your payback plan</h1>
+        <section className="overview-section">
+          <h4>
+            Loan amount: ${userValues.amount} <br />
+            Interest:{interest}% <br />
+          </h4>
+          <h4>
+            Years to repay: {userValues.years} <br />
+            Type of loan: {userValues.type}
+          </h4>
+        </section>
+      </header>
       <span className="result-container">
-        <div>
-          installment:
+        <span>
+          <h4>term</h4>
+          {outstandingDebt.map((e, i) => {
+            return <p key={i}>{i + 1}</p>;
+          })}
+        </span>
+        <span>
+          <h4> installment </h4>
           {installment.map((e, i) => {
-            return <ul key={i}>{e.toFixed(0)}</ul>;
+            return <p key={i}>{e.toFixed(0)}</p>;
           })}
-        </div>
-        <div>
-          interestRate:
+        </span>
+        <span>
+          <h4>interestRate</h4>
           {interestRate.map((e, i) => {
-            return <ul key={i}>{e.toFixed(0)}</ul>;
+            return <p key={i}>{e.toFixed(0)}</p>;
           })}
-        </div>
-        <div>
-          outstandingDebt:
+        </span>
+        <span>
+          <h4>outstandingDebt</h4>
           {outstandingDebt.map((e, i) => {
-            return <ul key={i}>{Math.abs(e.toFixed(1))}</ul>;
+            return <p key={i}>{Math.abs(e.toFixed(1))}</p>;
           })}
-        </div>
-        <div>
-          principal:
+        </span>
+        <span>
+          <h4> principal</h4>
           {outstandingDebt.map((e, i) => {
-            return <ul key={i}>{principal.toFixed(1)}</ul>;
+            return <p key={i}>{principal.toFixed(1)}</p>;
           })}
-        </div>
-        <div>
-          term:
-          {outstandingDebt.map((e, i) => {
-            return <ul key={i}>{i + 1}</ul>;
-          })}
-        </div>
+        </span>
+
         {/*<div>
         <h4>
           Loan amount: ${userValues.amount} <br />
