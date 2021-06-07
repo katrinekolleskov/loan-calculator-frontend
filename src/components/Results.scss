@@ -1,11 +1,23 @@
 @import "../style/theme.scss";
 
+.refresh-button { width: 100%;
+ button {
+     margin: 0 20px;
+     border-radius: $standard-radius;
+     padding: 10px;
+     border: none;
+     background: $main-pink;
+     color: white;
+     cursor: pointer;
+ }}
 
 .results-header {
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    
 
     .overview-section {
     display: flex;

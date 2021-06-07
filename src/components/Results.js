@@ -6,6 +6,10 @@ const Results = ({ userValues, interest }) => {
     window.scrollTo(0, 0);
   }, []);
 
+  const refreshPage = () => {
+    window.location.reload();
+  };
+
   const [installment, outstandingDebt, principal, interestRate] =
     useMemo(() => {
       const userAmount = userValues.amount;
@@ -39,12 +43,15 @@ const Results = ({ userValues, interest }) => {
 
   return (
     <>
+      <div className="refresh-button">
+        <button onClick={refreshPage}>Generate a new plan</button>
+      </div>
       <header className="results-header">
         <h1>Your payback plan</h1>
         <section className="overview-section">
           <h4>
             Loan amount: ${userValues.amount} <br />
-            Interest:{interest}% <br />
+            Interest: {interest} % <br />
           </h4>
           <h4>
             Years to repay: {userValues.years} <br />
@@ -54,31 +61,31 @@ const Results = ({ userValues, interest }) => {
       </header>
       <span className="result-container">
         <span>
-          <h4>term</h4>
+          <h4>Term</h4>
           {outstandingDebt.map((e, i) => {
             return <p key={i}>{i + 1}</p>;
           })}
         </span>
         <span>
-          <h4> installment </h4>
+          <h4> Installment </h4>
           {installment.map((e, i) => {
             return <p key={i}>{e.toFixed(0)}</p>;
           })}
         </span>
         <span>
-          <h4>interestRate</h4>
+          <h4>Interest</h4>
           {interestRate.map((e, i) => {
-            return <p key={i}>{e.toFixed(0)}</p>;
+            return <p key={i}>{e.toFixed(1)}</p>;
           })}
         </span>
         <span>
-          <h4>outstandingDebt</h4>
+          <h4>Outstanding debt</h4>
           {outstandingDebt.map((e, i) => {
             return <p key={i}>{Math.abs(e.toFixed(1))}</p>;
           })}
         </span>
         <span>
-          <h4> principal</h4>
+          <h4> Principal</h4>
           {outstandingDebt.map((e, i) => {
             return <p key={i}>{principal.toFixed(1)}</p>;
           })}
