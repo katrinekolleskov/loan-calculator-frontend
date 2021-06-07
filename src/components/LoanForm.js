@@ -10,28 +10,7 @@ const LoanForm = ({
   handleYearsInputChange,
   handleTypeInputChange,
 }) => {
-  const [error, setError] = useState({
-    amount: "",
-    years: "",
-    type: "",
-  });
-
   const [submitBtnClicked, setSubmitBtnClicked] = useState(false);
-
-  /*
-  var formIsValid = useMemo(() => {
-    if (
-      // Change to error
-      userValues.amount !== "" &&
-      userValues.years !== "" &&
-      userValues.type !== ""
-    ) {
-      return true;
-    }
-    return false;
-  }, [userValues]);
-
-  console.log("form is valid: ", formIsValid);*/
 
   const activateSubmitBtn = useMemo(() => {
     return (
@@ -40,24 +19,6 @@ const LoanForm = ({
       userValues.type === ""
     );
   }, [userValues]);
-
-  const handleValidation = () => {
-    // Buggy
-
-    if (userValues.amount === "") {
-      setError({ ...error, amount: "Amount cannot be empty." });
-    }
-
-    if (userValues.years === "") {
-      // formIsValid = false;
-      setError({ ...error, years: "Years cannot be empty." });
-    }
-
-    if (userValues.type === "") {
-      // formIsValid = false;
-      setError({ ...error, type: "Type cannot be empty." });
-    }
-  };
 
   return (
     <>
@@ -68,7 +29,7 @@ const LoanForm = ({
             <label id="amount" />
             <input
               className="input-field-number"
-              type="number" // note
+              type="number"
               name="amount"
               placeholder={
                 userValues.amount
@@ -84,7 +45,7 @@ const LoanForm = ({
             <label id="years" />
             <input
               className="input-field-number"
-              type="number" // Note
+              type="number"
               name="years"
               placeholder={
                 userValues.years
