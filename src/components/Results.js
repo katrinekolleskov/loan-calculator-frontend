@@ -90,25 +90,25 @@ const Results = ({ userInput, interest }) => {
         <ul>
           <h4> Installment </h4>
           {installment.map((e, i) => {
-            return <li key={i}>{e.toFixed(1)}</li>;
+            return <li key={i}>{e.toFixed(2)}</li>;
           })}
         </ul>
         <ul>
           <h4>Interest</h4>
           {interestRate.map((e, i) => {
-            return <li key={i}>{e.toFixed(1)}</li>;
-          })}
-        </ul>
-        <ul>
-          <h4>Outstanding debt</h4>
-          {outstandingDebt.map((e, i) => {
-            return <li key={i}>{Math.abs(e.toFixed(1))}</li>;
+            return <li key={i}>{e.toFixed(2)}</li>;
           })}
         </ul>
         <ul>
           <h4> Principal</h4>
           {outstandingDebt.map((e, i) => {
-            return <li key={i}>{principal.toFixed(1)}</li>;
+            return <li key={i}>{principal.toFixed(2)}</li>;
+          })}
+        </ul>
+        <ul>
+          <h4>Outstanding debt</h4>
+          {outstandingDebt.map((e, i) => {
+            return <li key={i}>{Math.abs(e.toFixed(2))}</li>;
           })}
         </ul>
       </span>
