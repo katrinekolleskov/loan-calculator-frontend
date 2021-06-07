@@ -16,7 +16,7 @@ I wanted a more diverse colour-profile than just two colours. I focused on simpl
 few elements. One thing I would have liked to change is to make the icons svg so I could easily
 change the colour (grey for inactive, for example). I made them into png because it's very fast (for me).
 
-I also did not make it responsive, but I would do this by using media query and defining break points (see sized.scss). I could have used bootstrap or similar libraries, but I prefer to do it myself. I find that I learn
+I also did not make it responsive, but I would do this by using media query and defining break points (see sized.scss). I could have used bootstrap or something similar, but I prefer to do it myself. I find that I learn
 it better that way and have more control.
 
 ## Some code changes
