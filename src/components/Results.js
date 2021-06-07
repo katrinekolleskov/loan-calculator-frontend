@@ -1,7 +1,11 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useEffect } from "react";
 import "./Results.scss";
 
 const Results = ({ userValues, interest }) => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const [installment, outstandingDebt, principal, interestRate] =
     useMemo(() => {
       const userAmount = userValues.amount;
