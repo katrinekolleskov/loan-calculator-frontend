@@ -23,8 +23,9 @@ const Calculator = ({ interest }) => {
   const handleYearsInputChange = (event) =>
     setUserValues({ ...userValues, years: event.target.value });
 
-  const handleTypeInputChange = (event) => {
-    setUserValues({ ...userValues, type: event.target.value });
+  const handleTypeInputChange = (type) => {
+    console.log("event: ", type);
+    setUserValues({ ...userValues, type: type });
   };
 
   /*

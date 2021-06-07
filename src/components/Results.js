@@ -1,42 +1,74 @@
-import React, { useState, useEffect } from "react";
+import React, { useMemo } from "react";
+import "./Results.scss";
 
 const Results = ({ userValues, interest }) => {
-  const [results, setResults] = useState({
-    monthlyPayment: "",
-    totalPayment: "",
-    totalInterest: "",
-    isResult: false, // Not necessary
-  });
+  const [installment, outstandingDebt, principal, interestRate] =
+    useMemo(() => {
+      const userAmount = userValues.amount;
+      const calculatedInterest = interest / 100 / 12;
+      const calculatedPayments = userValues.years * 12;
 
-  useEffect(() => {
-    const userAmount = userValues.amount;
-    const calculatedInterest = interest / 100 / 12;
-    const calculatedPayments = userValues.years * 12;
+      const principal = userAmount / calculatedPayments;
+      var outstandingDebt = parseInt(userAmount);
 
-    const x = Math.pow(1 + calculatedInterest, calculatedPayments);
-    const monthly = (userAmount * x * calculatedInterest) / (x - 1);
+      const paybackPlanObj = {
+        installment: [],
+        outstandingDebt: [],
+        interestRate: [],
+      };
 
-    if (isFinite(monthly)) {
-      const monthlyPaymentCalculated = monthly.toFixed(2);
-      const totalPaymentCalculated = (monthly * calculatedPayments).toFixed(2);
-      const totalInterestCalculated = (
-        monthly * calculatedPayments -
-        userAmount
-      ).toFixed(2);
+      for (var i = 0; i < calculatedPayments; i++) {
+        var installment = principal + calculatedInterest * outstandingDebt;
 
-      // Set up results to the state to be displayed to the user
-      setResults({
-        monthlyPayment: monthlyPaymentCalculated,
-        totalPayment: totalPaymentCalculated,
-        totalInterest: totalInterestCalculated,
-        isResult: true,
-      });
-    }
-  }, [userValues, interest]);
+        paybackPlanObj.interestRate.push(calculatedInterest * outstandingDebt);
+        paybackPlanObj.installment.push(installment);
+        outstandingDebt = outstandingDebt - principal;
+        paybackPlanObj.outstandingDebt.push(outstandingDebt);
+      }
+      return [
+        paybackPlanObj.installment,
+        paybackPlanObj.outstandingDebt,
+        principal,
+        paybackPlanObj.interestRate,
+      ];
+    }, [userValues, interest]);
 
   return (
-    <div>
-      <div>
+    <>
+      <h2>Type of loan: </h2>
+      <h3>{userValues.type}</h3>
+      <span className="result-container">
+        <div>
+          installment:
+          {installment.map((e, i) => {
+            return <ul key={i}>{e.toFixed(0)}</ul>;
+          })}
+        </div>
+        <div>
+          interestRate:
+          {interestRate.map((e, i) => {
+            return <ul key={i}>{e.toFixed(0)}</ul>;
+          })}
+        </div>
+        <div>
+          outstandingDebt:
+          {outstandingDebt.map((e, i) => {
+            return <ul key={i}>{Math.abs(e.toFixed(1))}</ul>;
+          })}
+        </div>
+        <div>
+          principal:
+          {outstandingDebt.map((e, i) => {
+            return <ul key={i}>{principal.toFixed(1)}</ul>;
+          })}
+        </div>
+        <div>
+          term:
+          {outstandingDebt.map((e, i) => {
+            return <ul key={i}>{i + 1}</ul>;
+          })}
+        </div>
+        {/*<div>
         <h4>
           Loan amount: ${userValues.amount} <br />
           Interest:{interest}% <br />
@@ -55,7 +87,16 @@ const Results = ({ userValues, interest }) => {
           <input type="text" value={interest} disabled />
         </div>
       </div>
-    </div>
+      <div>*/}
+        {/*payBackPlan?.map((content) => {
+          return (
+            <span>
+              <li>{content}</li>
+            </span>
+          );
+        })*/}
+      </span>
+    </>
   );
 };
 

@@ -1,4 +1,6 @@
 import React, { useMemo } from "react";
+import LoanTypeBtn from "./LoanTypeBtn";
+import logo from "../static/logo192.png";
 import "./LoanForm.scss";
 
 const LoanForm = ({
@@ -9,7 +11,6 @@ const LoanForm = ({
   handleTypeInputChange,
 }) => {
   const activateSubmitBtn = useMemo(() => {
-    console.log(":", userValues);
     return (
       userValues.amount === "" ||
       userValues.years === "" ||
@@ -43,32 +44,73 @@ const LoanForm = ({
                 onChange={handleYearsInputChange}
               />
             </div>
-            <div>
+            <span>
+              <LoanTypeBtn
+                src={logo}
+                type="housing"
+                onClick={handleTypeInputChange}
+              />
+              <LoanTypeBtn
+                src={logo}
+                type="car"
+                onClick={handleTypeInputChange}
+              />
+              <LoanTypeBtn
+                src={logo}
+                type="spending"
+                onClick={handleTypeInputChange}
+              />
+              <LoanTypeBtn
+                src={logo}
+                type="business"
+                onClick={handleTypeInputChange}
+              />
+            </span>
+            {/* <span className="loantype-radio-btn">
+              <div>
+                <div
+                  className={
+                    "radio-btn-container" +
+                    (userValues.type === "housing" ? "" : " inactive")
+                  }
+                >
+                  <input
+                    type="radio"
+                    id="housing"
+                    name="loanType"
+                    value="housing"
+                    onChange={handleTypeInputChange}
+                  />
+                </div>
+                <label htmlFor="male">Housing loan</label>
+              </div>
               <input
                 type="radio"
-                id="male"
-                name="gender"
-                value="male"
+                id="car"
+                name="loanType"
+                value="car"
                 onChange={handleTypeInputChange}
               />
-              <label htmlFor="male">Male</label>
+              <label htmlFor="female">Car loan</label>
               <input
                 type="radio"
-                id="female"
-                name="gender"
-                value="female"
+                id="spending"
+                name="loanType"
+                value="spending"
                 onChange={handleTypeInputChange}
               />
-              <label htmlFor="female">Female</label>
+
+              <label htmlFor="other">Spending loan</label>
               <input
                 type="radio"
-                id="other"
-                name="gender"
-                value="other"
+                id="business"
+                name="loanType"
+                value="business"
                 onChange={handleTypeInputChange}
               />
-              <label htmlFor="other">Other</label>
-            </div>
+
+              <label htmlFor="male">Business loan</label>
+            </span> */}
             <input
               type="submit"
               className={

@@ -5,3 +5,20 @@
      pointer-events: none;
     }
 }
+
+.loantype-radio-btn {
+    display: flex;
+
+    > * {
+        display:flex;
+        flex-direction: column;
+    }
+}
+
+.radio-btn-container {
+    padding: 30px;
+
+    &:hover {
+        background-color: grey;
+    }
+}
