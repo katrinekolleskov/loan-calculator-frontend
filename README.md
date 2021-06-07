@@ -1,6 +1,6 @@
 # Loan calculator generator
 
-I decided to make a web-portal with rather simple UI. I used create react app,
+I decided to make a web-portal with rather simple interface. I used create react app,
 since this is a single-page app.
 I have included more detailed commentary in the code.
 
