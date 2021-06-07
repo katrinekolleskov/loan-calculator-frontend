@@ -10,6 +10,13 @@ I have done some lazy solutions in this code that would not necessarily scale we
 Hopefully I explain it how I'd rather do it in the code without the sleep deprivation caused by
 a screaming baby.
 
+Also, the task asks you to only do the calculation for housing, but I figured that since it was
+no extra work to simply show how I'd expand it to include car, spending etc., I'd include it.
+If you want me to do it for housing only, I'd remove the other types from the code, both in the view and
+in the logic.
+
+To include other payback schemes, I'd let Calculation.js do the calculations based on user input (i.e what kind of payback schemes they want) and since I have done a poor job separating the view and the logic, I'd update the user input fields based on this. At the end I'd let Result.js know what it should show.
+
 ## Some design changes
 
 I wanted a more diverse colour-profile than just two colours. I focused on simple interactions and
