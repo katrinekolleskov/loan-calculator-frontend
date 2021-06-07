@@ -1,3 +1,14 @@
 @import "./colors.scss";
 @import "./fonts.scss";
 @import "./sizes.scss";
+
+/*
+* I prefer to "centralize" all styling, so that if I want certain elements
+* to look and behave in the same way, I have it located in the same place. 
+* For example, if I want all input-fields to have one colour or one size,
+* I have it in sizes.scss and colors.scss.
+*
+* If I would have even more similar behavior, say an animated button or
+* a button of a very specific style, I'd rather use a scss for the button alone.
+* Ex. Button.scss.
+*/

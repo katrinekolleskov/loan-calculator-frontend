@@ -1,10 +1,27 @@
 import React, { useMemo, useEffect } from "react";
 import "./Results.scss";
 
-const Results = ({ userValues, interest }) => {
+/**
+ * Results calculates the result and shows it. One thing I would have liked to change
+ * with the whole code here is to have one component that calculates the result, and
+ * Results.js is simply a view that shows the result. Right now, I have done a rather poor
+ * practice with having both the calculation and the presentation in the same component.
+ * A parent component could have calculated the result, or a context. Since this
+ * is a small one-page application, I did a lazy solution.
+ */
+
+const Results = ({ userInput, interest }) => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  /**
+   * This is poor practice, but works for this small application. For a larger program,
+   * I would have sent a function from a parent component (Calculator.js) that renders
+   * either result or loanform based on a state. The state change could be invoked by
+   * clicking the "go back"-button. It would also be necessary to clear the state in
+   * Calculator (userinput).
+   */
 
   const refreshPage = () => {
     window.location.reload();
@@ -12,9 +29,9 @@ const Results = ({ userValues, interest }) => {
 
   const [installment, outstandingDebt, principal, interestRate] =
     useMemo(() => {
-      const userAmount = userValues.amount;
+      const userAmount = userInput.amount;
       const calculatedInterest = interest / 100 / 12;
-      const calculatedPayments = userValues.years * 12;
+      const calculatedPayments = userInput.years * 12;
 
       const principal = userAmount / calculatedPayments;
       var outstandingDebt = parseInt(userAmount);
@@ -39,7 +56,7 @@ const Results = ({ userValues, interest }) => {
         principal,
         paybackPlanObj.interestRate,
       ];
-    }, [userValues, interest]);
+    }, [userInput, interest]);
 
   return (
     <>
@@ -50,74 +67,50 @@ const Results = ({ userValues, interest }) => {
         <h1>Your payback plan</h1>
         <section className="overview-section">
           <h4>
-            Loan amount: ${userValues.amount} <br />
+            Loan amount: ${userInput.amount} <br />
             Interest: {interest} % <br />
           </h4>
           <h4>
-            Years to repay: {userValues.years} <br />
-            Type of loan: {userValues.type}
+            Years to repay: {userInput.years} <br />
+            Type of loan: {userInput.type + " loan"}
           </h4>
         </section>
       </header>
+      {/* Repetitive code. I could have created an object that had term,
+       * installment, interest, outstanding debt and principal, and loop through
+       * it with one map, instead.
+       */}
       <span className="result-container">
-        <span>
+        <ul>
           <h4>Term</h4>
           {outstandingDebt.map((e, i) => {
-            return <p key={i}>{i + 1}</p>;
+            return <li key={i}>{i + 1}</li>;
           })}
-        </span>
-        <span>
+        </ul>
+        <ul>
           <h4> Installment </h4>
           {installment.map((e, i) => {
-            return <p key={i}>{e.toFixed(0)}</p>;
+            return <li key={i}>{e.toFixed(1)}</li>;
           })}
-        </span>
-        <span>
+        </ul>
+        <ul>
           <h4>Interest</h4>
           {interestRate.map((e, i) => {
-            return <p key={i}>{e.toFixed(1)}</p>;
+            return <li key={i}>{e.toFixed(1)}</li>;
           })}
-        </span>
-        <span>
+        </ul>
+        <ul>
           <h4>Outstanding debt</h4>
           {outstandingDebt.map((e, i) => {
-            return <p key={i}>{Math.abs(e.toFixed(1))}</p>;
+            return <li key={i}>{Math.abs(e.toFixed(1))}</li>;
           })}
-        </span>
-        <span>
+        </ul>
+        <ul>
           <h4> Principal</h4>
           {outstandingDebt.map((e, i) => {
-            return <p key={i}>{principal.toFixed(1)}</p>;
+            return <li key={i}>{principal.toFixed(1)}</li>;
           })}
-        </span>
-
-        {/*<div>
-        <h4>
-          Loan amount: ${userValues.amount} <br />
-          Interest:{interest}% <br />
-          Years to repay: {userValues.years}
-        </h4>
-        <div>
-          <label>Monthly Payment:</label>
-          <input type="text" value={results.monthlyPayment} disabled />
-        </div>
-        <div>
-          <label>Total Payment: </label>
-          <input type="text" value={results.totalPayment} disabled />
-        </div>
-        <div>
-          <label>Total Interest:</label>
-          <input type="text" value={interest} disabled />
-        </div>
-      </div>
-      <div>*/}
-        {/*payBackPlan?.map((content) => {
-          return (
-            <span>
-              <li>{content}</li>
-            </span>
-          );
-        })*/}
+        </ul>
       </span>
     </>
   );

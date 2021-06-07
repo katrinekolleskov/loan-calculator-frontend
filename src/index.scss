@@ -5,12 +5,12 @@ body {
   font-family: $font-family-main;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
- margin-top: 40px;
+  margin-top: 40px;
   
 
-  h1, h2, h3, input, p, button {
-    color: $title-grey;
-    font-family: $font-family-main;
+  h1, h2, h3, input, p, button, li {
+      color: $title-grey;
+      font-family: $font-family-main;
     }
 
     h1 {

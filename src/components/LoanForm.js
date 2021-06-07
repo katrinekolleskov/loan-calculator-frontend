@@ -1,10 +1,27 @@
 import React, { useMemo, useState } from "react";
 import LoanTypeBtn from "./LoanTypeBtn";
-import logo from "../static/logo192.png";
+import house from "../static/house.png";
+import car from "../static/car.png";
+import spending from "../static/spending.png";
+import business from "../static/business.png";
 import "./LoanForm.scss";
 
+/**
+ * LoanForm renders a <Form />. I did not want it to handle user-insput
+ * since this is displayed in Result.js. Therefore it makes more sense
+ * for the parent component (Calculator) to have the functions "handleInputChange"
+ * and send it down to LoanForm.
+ *
+ * I useMemo here because activateSubmitBtn only changes value if userInput changes
+ * value. This way it does not re-render unnecessarily.
+ *
+ * One thing I wanted to add here that I did not have time for, was input validation.
+ * I do not check for negative values (such as negative years and amount). This could
+ * have been a function that is initiated when clicking the submit-button.
+ */
+
 const LoanForm = ({
-  userValues,
+  userInput,
   handleSubmitValues,
   handleAmountInputChange,
   handleYearsInputChange,
@@ -14,11 +31,9 @@ const LoanForm = ({
 
   const activateSubmitBtn = useMemo(() => {
     return (
-      userValues.amount === "" ||
-      userValues.years === "" ||
-      userValues.type === ""
+      userInput.amount === "" || userInput.years === "" || userInput.type === ""
     );
-  }, [userValues]);
+  }, [userInput]);
 
   return (
     <>
@@ -32,14 +47,14 @@ const LoanForm = ({
               type="number"
               name="amount"
               placeholder={
-                userValues.amount
-                  ? userValues.amount
+                userInput.amount
+                  ? userInput.amount
                   : "How much do you wish to borrow? (ex. 50 000 kr)"
               }
-              value={userValues.amount}
+              value={userInput.amount}
               onChange={handleAmountInputChange}
             />
-            {submitBtnClicked && userValues.amount === "" && (
+            {submitBtnClicked && userInput.amount === "" && (
               <p>Amount cannot be empty</p>
             )}
             <label id="years" />
@@ -48,43 +63,43 @@ const LoanForm = ({
               type="number"
               name="years"
               placeholder={
-                userValues.years
-                  ? userValues.years
+                userInput.years
+                  ? userInput.years
                   : "By when do you wish to pay it back? (ex. 12 years)"
               }
-              value={userValues.years}
+              value={userInput.years}
               onChange={handleYearsInputChange}
             />
-            {submitBtnClicked && userValues.years === "" && (
+            {submitBtnClicked && userInput.years === "" && (
               <p>Years cannot be empty</p>
             )}
             <span className="type-button-group">
               <LoanTypeBtn
-                src={logo}
+                src={house}
                 type="housing"
                 onClick={handleTypeInputChange}
-                active={userValues.type === "housing"}
+                active={userInput.type === "housing"}
               />
               <LoanTypeBtn
-                src={logo}
+                src={car}
                 type="car"
                 onClick={handleTypeInputChange}
-                active={userValues.type === "car"}
+                active={userInput.type === "car"}
               />
               <LoanTypeBtn
-                src={logo}
+                src={spending}
                 type="spending"
                 onClick={handleTypeInputChange}
-                active={userValues.type === "spending"}
+                active={userInput.type === "spending"}
               />
               <LoanTypeBtn
-                src={logo}
+                src={business}
                 type="business"
                 onClick={handleTypeInputChange}
-                active={userValues.type === "business"}
+                active={userInput.type === "business"}
               />
             </span>
-            {submitBtnClicked && userValues.type === "" && (
+            {submitBtnClicked && userInput.type === "" && (
               <p>Type of loan cannot be empty</p>
             )}
             <input
