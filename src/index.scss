@@ -1,22 +1,33 @@
 @import "./style/theme.scss";
 
 body {
-  margin: 0;
+  margin: 0px;
   font-family: $font-family-main;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  margin-top: 40px;
+  
 
-  h1 {
-    color: $titleGrey;
-    font-family: $font-family-main;
-    font-size: $font-size-large;
-    letter-spacing: $title-letter-spacing;
-  }
+  h1, h2, h3, input, p, button, li {
+      color: $title-grey;
+      font-family: $font-family-main;
+    }
+
+    h1 {
+        font-size: $font-size-large;
+        letter-spacing: $title-letter-spacing;
+        text-align: center;
+    }
+
+    h3, input {
+        font-size: $font-size-regular;
+    }
+    
 
   input {
       border-radius: $standard-radius;
-      border-color: $mainPink;
-      background-color: transparent;
+      border-color: $main-pink;
+      border-style: solid;
   }
 }
 

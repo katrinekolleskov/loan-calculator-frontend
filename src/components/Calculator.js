@@ -2,49 +2,53 @@ import React, { useState } from "react";
 import LoanForm from "./LoanForm";
 import Results from "./Results";
 
-const Calculator = ({ interest }) => {
-  const [userValues, setUserValues] = useState({
+/**
+ * Calculator controls most of the code. I wanted this to be the single source of truth.
+ * The rendering of either LoanForm or Results works for now, but scales poorly.
+ */
+
+/** Interest is a constant, so I have it outside of App.
+ * This is where I could include other interests for example
+ * car loan, etc.
+ */
+
+const interest = 3.5;
+
+const Calculator = () => {
+  const [userInput, setUserValues] = useState({
     amount: "",
     years: "",
     type: "",
   });
 
-  const [submit, setSubmit] = useState(false); // Necessary?
+  const [submit, setSubmit] = useState(false);
 
   const handleSubmitValues = (e) => {
-    e.preventDefault();
-    console.log("uservalues:", userValues);
     setSubmit(true);
   };
 
   const handleAmountInputChange = (event) =>
-    setUserValues({ ...userValues, amount: event.target.value });
+    setUserValues({ ...userInput, amount: event.target.value });
 
   const handleYearsInputChange = (event) =>
-    setUserValues({ ...userValues, years: event.target.value });
+    setUserValues({ ...userInput, years: event.target.value });
 
   const handleTypeInputChange = (type) => {
-    console.log("event: ", type);
-    setUserValues({ ...userValues, type: type });
+    setUserValues({ ...userInput, type: type });
   };
-
-  /*
-    There's one thing we need to do first though. On form submission, the default behaviour is to reload/redirect the page. 
-    To avoid this, we need to call the preventDefault() method on the event.
-    */
 
   return (
     <>
       {!submit ? (
         <LoanForm
-          userValues={userValues}
+          userInput={userInput}
           handleSubmitValues={handleSubmitValues}
           handleAmountInputChange={handleAmountInputChange}
           handleYearsInputChange={handleYearsInputChange}
           handleTypeInputChange={handleTypeInputChange}
         />
       ) : (
-        <Results userValues={userValues} interest={interest} />
+        <Results userInput={userInput} interest={interest} />
       )}
     </>
   );

@@ -1,24 +1,43 @@
+@import "../style/theme.scss";
 
-.submit-button {
+.form-container {
     
-    &.inactive {
-     pointer-events: none;
-    }
-}
-
-.loantype-radio-btn {
-    display: flex;
-
-    > * {
-        display:flex;
+    .form-items {
+        display: flex;
         flex-direction: column;
+
+    .submit-button {
+        align-self: center;
+        justify-self: center;
+        width: 100px;
+        padding: 7px;
+        background-color: $main-pink;
+        color: white;
+        cursor: pointer;
+
+        &.inactive {
+            border-color: $inactive-grey;
+            background-color: $inactive-grey;
+            cursor: not-allowed;
+        }
+    }
+
+    p {
+        font-size: $font-size-small;
+        color: $main-pink;
+        margin : 0 10px;
+    }
+
+    .input-field-number {
+    width : 500px;
+    padding : 10px;
+    margin : $standard-margin;
+    background-color: transparent; 
+    }
+
+    .type-button-group {
+        display: flex;
+        justify-content: space-around;
     }
 }
-
-.radio-btn-container {
-    padding: 30px;
-
-    &:hover {
-        background-color: grey;
-    }
 }

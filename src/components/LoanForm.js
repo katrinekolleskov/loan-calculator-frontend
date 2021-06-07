@@ -1,121 +1,114 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import LoanTypeBtn from "./LoanTypeBtn";
-import logo from "../static/logo192.png";
+import house from "../static/house.png";
+import car from "../static/car.png";
+import spending from "../static/spending.png";
+import business from "../static/business.png";
 import "./LoanForm.scss";
 
+/**
+ * LoanForm renders a <Form />. I did not want it to handle user-insput
+ * since this is displayed in Result.js. Therefore it makes more sense
+ * for the parent component (Calculator) to have the functions "handleInputChange"
+ * and send it down to LoanForm.
+ *
+ * I useMemo here because activateSubmitBtn only changes value if userInput changes
+ * value. This way it does not re-render unnecessarily.
+ *
+ * One thing I wanted to add here that I did not have time for, was input validation.
+ * I do not check for negative values (such as negative years and amount). This could
+ * have been a function that is initiated when clicking the submit-button.
+ */
+
 const LoanForm = ({
-  userValues,
+  userInput,
   handleSubmitValues,
   handleAmountInputChange,
   handleYearsInputChange,
   handleTypeInputChange,
 }) => {
+  const [submitBtnClicked, setSubmitBtnClicked] = useState(false);
+
   const activateSubmitBtn = useMemo(() => {
     return (
-      userValues.amount === "" ||
-      userValues.years === "" ||
-      userValues.type === ""
+      userInput.amount === "" || userInput.years === "" || userInput.type === ""
     );
-  }, [userValues]);
+  }, [userInput]);
 
   return (
     <>
       <h1>Create a new payback plan</h1>
-      <div className="form">
+      <div className="form-container">
         <form onSubmit={handleSubmitValues}>
           <div className="form-items">
-            <div>
-              <label id="label">Amount:</label>
-              <input
-                type="number" // note
-                name="amount"
-                placeholder={userValues.amount}
-                value={userValues.amount}
-                onChange={handleAmountInputChange}
-              />
-            </div>
-            <div>
-              <label id="label">Years:</label>
-              <input
-                type="number" // Note
-                name="years"
-                placeholder="Years to repay"
-                value={userValues.years}
-                onChange={handleYearsInputChange}
-              />
-            </div>
-            <span>
+            <label id="amount" />
+            <input
+              className="input-field-number"
+              type="number"
+              name="amount"
+              placeholder={
+                userInput.amount
+                  ? userInput.amount
+                  : "How much do you wish to borrow? (ex. 50 000 kr)"
+              }
+              value={userInput.amount}
+              onChange={handleAmountInputChange}
+            />
+            {submitBtnClicked && userInput.amount === "" && (
+              <p>Amount cannot be empty</p>
+            )}
+            <label id="years" />
+            <input
+              className="input-field-number"
+              type="number"
+              name="years"
+              placeholder={
+                userInput.years
+                  ? userInput.years
+                  : "By when do you wish to pay it back? (ex. 12 years)"
+              }
+              value={userInput.years}
+              onChange={handleYearsInputChange}
+            />
+            {submitBtnClicked && userInput.years === "" && (
+              <p>Years cannot be empty</p>
+            )}
+            <span className="type-button-group">
               <LoanTypeBtn
-                src={logo}
+                src={house}
                 type="housing"
                 onClick={handleTypeInputChange}
+                active={userInput.type === "housing"}
               />
               <LoanTypeBtn
-                src={logo}
+                src={car}
                 type="car"
                 onClick={handleTypeInputChange}
+                active={userInput.type === "car"}
               />
               <LoanTypeBtn
-                src={logo}
+                src={spending}
                 type="spending"
                 onClick={handleTypeInputChange}
+                active={userInput.type === "spending"}
               />
               <LoanTypeBtn
-                src={logo}
+                src={business}
                 type="business"
                 onClick={handleTypeInputChange}
+                active={userInput.type === "business"}
               />
             </span>
-            {/* <span className="loantype-radio-btn">
-              <div>
-                <div
-                  className={
-                    "radio-btn-container" +
-                    (userValues.type === "housing" ? "" : " inactive")
-                  }
-                >
-                  <input
-                    type="radio"
-                    id="housing"
-                    name="loanType"
-                    value="housing"
-                    onChange={handleTypeInputChange}
-                  />
-                </div>
-                <label htmlFor="male">Housing loan</label>
-              </div>
-              <input
-                type="radio"
-                id="car"
-                name="loanType"
-                value="car"
-                onChange={handleTypeInputChange}
-              />
-              <label htmlFor="female">Car loan</label>
-              <input
-                type="radio"
-                id="spending"
-                name="loanType"
-                value="spending"
-                onChange={handleTypeInputChange}
-              />
-
-              <label htmlFor="other">Spending loan</label>
-              <input
-                type="radio"
-                id="business"
-                name="loanType"
-                value="business"
-                onChange={handleTypeInputChange}
-              />
-
-              <label htmlFor="male">Business loan</label>
-            </span> */}
+            {submitBtnClicked && userInput.type === "" && (
+              <p>Type of loan cannot be empty</p>
+            )}
             <input
-              type="submit"
+              type={!activateSubmitBtn ? "submit" : "button"}
+              value="Generate"
               className={
                 "submit-button" + (!activateSubmitBtn ? "" : " inactive")
               }
+              onClick={() => setSubmitBtnClicked(true)}
             />
           </div>
         </form>
